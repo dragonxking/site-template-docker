@@ -73,11 +73,11 @@ export async function SiteFooter({ locale }: { locale: string }) {
 
   // 外链只显示 site.ts 中已配置的项
   const quickLinks: string[][] = [
-    [t("playGame"), links.play],
-    [t("officialDiscord"), links.discord],
-    [t("officialYoutube"), links.youtube],
-    [t("communityTool"), links.communityTool],
-  ].filter(([, href]) => Boolean(href));
+    ...(links.play ? [[t("playGame"), links.play]] : []),
+    ...(links.discord ? [[t("officialDiscord"), links.discord]] : []),
+    ...(links.youtube ? [[t("officialYoutube"), links.youtube]] : []),
+    ...(links.communityTool ? [[t("communityTool"), links.communityTool]] : []),
+  ];
 
   // 指南入口随 navigation.ts 的内容分类自动生成，避免指向不存在的页面
   const guideLinks: string[][] = [
