@@ -1,5 +1,12 @@
 import { LegalPage } from "@/components/legal-page";
 import { siteConfig } from "@/config/site";
+import { staticPageMetadata } from "@/lib/static-page-metadata";
+import type { Locale } from "@/i18n/routing";
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: Locale }> }) {
+  const { locale } = await params;
+  return staticPageMetadata("Copyright", `Copyright and ownership information for ${siteConfig.wikiName} and the ${siteConfig.name} game materials it references.`, "/copyright", locale);
+}
 
 export default function CopyrightPage() {
   return (

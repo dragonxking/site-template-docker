@@ -7,7 +7,7 @@ import { localizedPath } from "@/i18n/paths";
 import type { NavGroup } from "@/lib/content";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetClose, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { CollapsibleNavGroup } from "@/components/collapsible-nav-group";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { ClientThemeToggle } from "@/components/theme-toggle";
@@ -39,8 +39,10 @@ export async function SiteHeader({ locale }: { locale: string }) {
         <Sheet>
           <SheetTrigger asChild className="md:hidden"><Button variant="outline" size="icon" aria-label={t("menu")}><Menu className="h-4 w-4" /></Button></SheetTrigger>
           <SheetContent className="border-border bg-background text-foreground">
+            <SheetTitle className="sr-only">{t("menu")}</SheetTitle>
+            <SheetDescription className="sr-only">{NAVIGATION_CONFIG.map((item) => t(item.key)).join(", ")}</SheetDescription>
             <div className="mt-8 grid gap-2">
-              {NAVIGATION_CONFIG.map((item) => <Link key={item.key} href={localizeHref(item.path, locale)} className="rounded-lg px-3 py-3 text-sm font-semibold hover:bg-muted">{t(item.key)}</Link>)}
+              {NAVIGATION_CONFIG.map((item) => <SheetClose key={item.key} asChild><Link href={localizeHref(item.path, locale)} className="rounded-lg px-3 py-3 text-sm font-semibold hover:bg-muted">{t(item.key)}</Link></SheetClose>)}
             </div>
           </SheetContent>
         </Sheet>

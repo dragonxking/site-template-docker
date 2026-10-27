@@ -33,6 +33,9 @@ const defaultComponents: MDXComponents = {
   },
   p: ({ children }) => <p className="my-5 leading-8 text-muted-foreground">{children}</p>,
   ul: ({ children }) => <ul className="my-5 ml-5 list-disc space-y-2 text-muted-foreground marker:text-[hsl(var(--nav-theme))]">{children}</ul>,
+  ol: ({ children }) => <ol className="my-5 ml-5 list-decimal space-y-2 text-muted-foreground marker:text-[hsl(var(--nav-theme))]">{children}</ol>,
+  pre: ({ children }) => <pre className="my-5 max-w-full overflow-x-auto rounded-xl border border-border bg-muted p-4 text-sm">{children}</pre>,
+  code: ({ children }) => <code className="[overflow-wrap:anywhere]">{children}</code>,
   li: ({ children }) => <li className="pl-1 leading-7">{children}</li>,
   strong: ({ children }) => <strong className="font-semibold text-foreground">{children}</strong>,
   a: ({ href = "", children }) => (
