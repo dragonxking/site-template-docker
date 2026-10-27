@@ -1,11 +1,12 @@
 {
-  "name": "nextjs-shadcn",
+  "name": "game-guide-site",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev -H 0.0.0.0",
     "build": "next build",
     "start": "next start",
+    "check:site": "node scripts/check-site.mjs",
     "lint": "bunx tsc --noEmit && next lint",
     "format": "bunx biome format --write"
   },

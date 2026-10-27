@@ -235,7 +235,7 @@ export interface NavGroup {
   links: Array<{ label: string; href: string; badge?: string }>;
 }
 
-// 分组标题映射：slug → 人类可读标题（默认英文）
+// 分组标题映射：slug → 人类可读标题（默认英文）。未列出的分类自动用目录名转 Title Case。
 const GROUP_TITLES: Record<string, string> = {
   bosses: "Bosses",
   races: "Races",
@@ -267,10 +267,8 @@ const OVERVIEW_LABEL_BY_LOCALE: Record<string, string> = {
   ja: "一覧",
 };
 
-// 分组排序顺序
-const GROUP_ORDER: string[] = [
-  "guide", "races", "bosses", "maps", "skills", "codes", "tier-list",
-];
+// 分组排序顺序：与 src/config/navigation.ts 中的内容分类顺序保持一致
+const GROUP_ORDER: string[] = CONTENT_TYPES;
 
 /**
  * 动态生成 Wiki Navigation 分组
@@ -288,7 +286,7 @@ export function getDynamicNavigation(language: Locale = "en"): NavGroup[] {
     if (!entry.isDirectory()) continue;
     const groupSlug = entry.name;
     // 跳过不在 CONTENT_TYPES 中的目录，避免显示会 404 的导航链接
-    if (!CONTENT_TYPES.includes(groupSlug as typeof CONTENT_TYPES[number])) continue;
+    if (!CONTENT_TYPES.includes(groupSlug)) continue;
     const groupDir = path.join(localeDir, groupSlug);
     const slugPaths = getSlugsFromDirectory(groupDir);
 
