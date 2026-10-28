@@ -14,6 +14,12 @@ export default function PrivacyPolicyPage() {
       <p>{siteConfig.wikiName} provides informational game guides for {siteConfig.name}. We do not request account credentials, game passwords, or private payment information.</p>
       <p>Basic analytics, advertising, and hosting providers may process standard technical information such as device type, browser, approximate region, and visited pages.</p>
       <p>External links may lead to the game&apos;s official website, community channels, video platforms, or community tools. Those services are governed by their own privacy policies.</p>
+      {siteConfig.contactEmail && (
+        <p>
+          Questions about this policy can be sent to{" "}
+          <a className="underline" href={`mailto:${siteConfig.contactEmail}`}>{siteConfig.contactEmail}</a>.
+        </p>
+      )}
     </LegalPage>
   );
 }

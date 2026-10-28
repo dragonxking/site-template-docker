@@ -46,6 +46,9 @@ export const siteConfig = {
   /** 首页 hero 区 trailer 的 YouTube 视频 ID；留空则不显示 trailer 区块 */
   youtubeVideoId: "",
 
+  /** 站点联系邮箱（如 contact@你的域名，可用 Cloudflare Email Routing 转发）；留空则版权/关于/隐私页不显示邮箱 */
+  contactEmail: "",
+
   /** 外链：留空字符串则对应入口自动隐藏 */
   links: {
     /** 游戏官网 / 商店页 / Roblox 游戏页（用于 footer 与首页 CTA） */
