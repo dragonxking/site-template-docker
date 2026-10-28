@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
 import { ThemeProvider } from "next-themes";
+import { Analytics } from "@/components/analytics";
 import { SiteFooter, SiteHeader } from "@/components/site";
 import { Button } from "@/components/ui/button";
 import { NAVIGATION_CONFIG } from "@/config/navigation";
@@ -32,6 +33,7 @@ export default async function GlobalNotFound() {
   return (
     <html lang={locale} className={inter.variable} suppressHydrationWarning>
       <body className="min-h-screen bg-background font-sans text-foreground antialiased">
+        <Analytics />
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
           <NextIntlClientProvider messages={messages}>
             <SiteHeader locale={locale} />

@@ -13,6 +13,12 @@ export default function PrivacyPolicyPage() {
     <LegalPage title="Privacy Policy">
       <p>{siteConfig.wikiName} provides informational game guides for {siteConfig.name}. We do not request account credentials, game passwords, or private payment information.</p>
       <p>Basic analytics, advertising, and hosting providers may process standard technical information such as device type, browser, approximate region, and visited pages.</p>
+      {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID && (
+        <p>
+          This site uses Google Analytics 4 to measure traffic. It sets cookies or uses similar technologies in your browser to collect usage data such as pages visited, approximate location, device type and browser. Google processes this data under its own privacy policy. You can block cookies in your browser settings or use Google&apos;s{" "}
+          <a className="underline" href="https://tools.google.com/dlpage/gaoptout" rel="noopener noreferrer" target="_blank">Analytics opt-out browser add-on</a>.
+        </p>
+      )}
       <p>External links may lead to the game&apos;s official website, community channels, video platforms, or community tools. Those services are governed by their own privacy policies.</p>
       {siteConfig.contactEmail && (
         <p>
