@@ -1,5 +1,6 @@
 import fs from "fs";
 import path from "path";
+import type { MDXComponents } from "mdx/types";
 import { CONTENT_TYPES as CONFIG_CONTENT_TYPES } from "@/config/navigation";
 import { routing, type Locale } from "@/i18n/routing";
 
@@ -77,7 +78,7 @@ export type ContentData = {
   contentType: string;
   locale: Locale;
   metadata: ContentMetadata;
-  MDXContent: React.ComponentType;
+  MDXContent: React.ComponentType<{ components?: MDXComponents }>;
   headings: Heading[];
 };
 

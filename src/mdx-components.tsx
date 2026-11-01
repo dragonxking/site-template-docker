@@ -1,5 +1,28 @@
 import Link from "next/link";
 import type { MDXComponents } from "mdx/types";
+import { localizedPath } from "@/i18n/paths";
+import { routing } from "@/i18n/routing";
+
+const linkClassName = "font-medium text-[hsl(var(--nav-theme))] underline-offset-4 hover:underline";
+
+/** 文章里写的是不带语言的站内路径（如 `/codes/x`），渲染时按当前语言补前缀；外链、锚点和已带前缀的路径不变 */
+export function localizeMdxHref(href: string, locale: string): string {
+  if (!href.startsWith("/") || href.startsWith("//")) return href;
+  const firstSegment = href.split(/[/?#]/)[1];
+  if ((routing.locales as readonly string[]).includes(firstSegment)) return href;
+  return localizedPath(href, locale);
+}
+
+/** 传给 `<MDXContent components={...} />`，覆盖默认的 `a` */
+export function mdxComponentsForLocale(locale: string): MDXComponents {
+  return {
+    a: ({ href = "", children }) => (
+      <Link className={linkClassName} href={localizeMdxHref(href, locale)}>
+        {children}
+      </Link>
+    ),
+  };
+}
 
 function toHeadingId(children: React.ReactNode): string {
   const text = String(children).replace(/<[^>]*>/g, "").trim();
@@ -39,7 +62,7 @@ const defaultComponents: MDXComponents = {
   li: ({ children }) => <li className="pl-1 leading-7">{children}</li>,
   strong: ({ children }) => <strong className="font-semibold text-foreground">{children}</strong>,
   a: ({ href = "", children }) => (
-    <Link className="font-medium text-[hsl(var(--nav-theme))] underline-offset-4 hover:underline" href={href}>
+    <Link className={linkClassName} href={href}>
       {children}
     </Link>
   ),
