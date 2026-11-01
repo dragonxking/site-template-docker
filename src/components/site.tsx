@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ChevronRight, ExternalLink, Moon, Play, Sun, Menu } from "lucide-react";
+import { ChevronRight, ExternalLink, Moon, Play, Sun, Menu, X } from "lucide-react";
 import { getMessages, getTranslations } from "next-intl/server";
 import { NAVIGATION_CONFIG } from "@/config/navigation";
 import { siteConfig } from "@/config/site";
@@ -117,7 +117,7 @@ export function TrailerDialog({ videoId }: { videoId: string }) {
     <dialog id="trailer-dialog" className="m-auto w-full max-w-4xl overflow-visible bg-transparent p-0 backdrop:bg-black/80 backdrop:backdrop-blur-sm" onClick={(e) => { if (e.target === e.currentTarget) e.currentTarget.close(); }} onClose={() => { (document.getElementById("trailer-iframe") as HTMLIFrameElement).src = ""; }}>
       <div className="relative mx-4">
         <iframe id="trailer-iframe" title={`${siteConfig.name} video`} className="aspect-video w-full rounded-xl bg-black" allow="autoplay; encrypted-media; picture-in-picture" allowFullScreen />
-        <button type="button" className="absolute -top-10 right-0 text-sm font-medium text-white/80 hover:text-white" onClick={() => (document.getElementById("trailer-dialog") as HTMLDialogElement).close()}>✕ Close</button>
+        <button type="button" className="absolute -top-10 right-0 inline-flex items-center gap-1 text-sm font-medium text-white/80 hover:text-white" onClick={() => (document.getElementById("trailer-dialog") as HTMLDialogElement).close()}><X className="h-4 w-4" aria-hidden="true" />Close</button>
       </div>
     </dialog>
   );
