@@ -66,6 +66,18 @@ export const siteConfig = {
     logo: "/android-chrome-512x512.png",
   },
 
+  /** 页面 <head> 的图标声明；不声明时浏览器只会取 /favicon.ico，书签、标签页和手机桌面图标会很小 */
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/android-chrome-192x192.png", sizes: "192x192", type: "image/png" },
+      { url: "/android-chrome-512x512.png", sizes: "512x512", type: "image/png" },
+    ],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
+  },
+
   /**
    * 首页与侧栏会链接到的关键页面（站内路径，不含语言前缀）。
    * 必须指向真实存在的页面：内容分类列表页（如 "/guide"）或某篇文章。

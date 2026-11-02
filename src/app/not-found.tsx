@@ -17,6 +17,7 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 export const metadata: Metadata = {
   title: `Page not found — ${siteConfig.wikiName}`,
   robots: { index: false, follow: true },
+  icons: siteConfig.icons,
 };
 
 /**

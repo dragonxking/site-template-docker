@@ -29,6 +29,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     ...(messages.metadata.keywords ? { keywords: messages.metadata.keywords } : {}),
     openGraph: { type: "website", locale, url: siteUrl, siteName: siteConfig.wikiName, images: [{ url: image }] },
     twitter: { card: "summary_large_image", images: [image] },
+    icons: siteConfig.icons,
   };
 }
 
