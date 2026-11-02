@@ -77,15 +77,28 @@ for (const [type, list] of hasContent) {
 }
 
 // 4. 站内链接必须指向真实页面：explore.modules[].href 与 site.ts 的 paths
+/** 与 mdx-components.tsx 的 toHeadingId 保持一致，用来核对 `#锚点` */
+const toHeadingId = (text) =>
+  text.toLowerCase().replace(/[^a-z0-9\s-]/g, "").replace(/\s+/g, "-").replace(/-+/g, "-").replace(/^-|-$/g, "");
 function checkInternalPath(href, source) {
   if (!href.startsWith("/")) return errors.push(`${source}: "${href}" 不是站内路径`);
-  const [type, ...rest] = href.replace(/^\//, "").split("/");
+  const [path, anchor] = href.split("#");
+  const [type, ...rest] = path.replace(/^\//, "").split("/");
   if (!contentTypes.includes(type)) return errors.push(`${source}: "${href}" 的分类 "${type}" 不在 navigation.ts 中（页面不存在）`);
   if (rest.length > 0 && !(hasContent.get(type) ?? []).includes(rest.join("/"))) {
-    errors.push(`${source}: "${href}" 在 content/en/${type}/ 下找不到对应文章`);
+    return errors.push(`${source}: "${href}" 在 content/en/${type}/ 下找不到对应文章`);
+  }
+  if (anchor && rest.length > 0) {
+    const ids = [...read(`content/en/${type}/${rest.join("/")}.mdx`).matchAll(/^#{2,3} (.+)$/gm)].map((m) => toHeadingId(m[1]));
+    if (!ids.includes(anchor)) errors.push(`${source}: "${href}" 的锚点在文章小标题中不存在`);
   }
 }
-for (const mod of en.home?.explore?.modules ?? []) checkInternalPath(mod.href, `home.explore.modules[${mod.order}].href`);
+for (const mod of en.home?.explore?.modules ?? []) {
+  checkInternalPath(mod.href, `home.explore.modules[${mod.order}].href`);
+  for (const [i, h] of (mod.highlights ?? []).entries()) {
+    if (h.href) checkInternalPath(h.href, `home.explore.modules[${mod.order}].highlights[${i}].href`);
+  }
+}
 const sitePaths = read("src/config/site.ts").match(/paths:\s*\{([\s\S]*?)\}/);
 for (const m of (sitePaths?.[1] ?? "").matchAll(/(\w+):\s*"([^"]+)"/g)) {
   if (m[1] === "codes" && (en.sidebarCodes ?? []).length === 0) continue; // 没有侧栏兑换码时不会渲染该链接

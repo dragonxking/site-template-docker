@@ -203,12 +203,25 @@ export default function HomePageClient({ home, locale, articles, recentArticles 
                   {/* card-list: icon + name cards */}
                   {mod.displayType === "card-list" && mod.highlights && mod.highlights.length > 0 && (
                     <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                      {mod.highlights.map((h, i) => (
-                        <div key={i} className="flex items-center gap-3 rounded-xl border border-border bg-muted p-3">
-                          <span className="text-xl">{h.label}</span>
-                          <span className="text-sm font-medium text-foreground">{h.detail}</span>
-                        </div>
-                      ))}
+                      {mod.highlights.map((h, i) => {
+                        const cardHref = "href" in h && typeof h.href === "string" ? h.href : undefined;
+                        const cardBody = (
+                          <>
+                            <span className="text-xl">{h.label}</span>
+                            <span className="text-sm font-medium text-foreground">{h.detail}</span>
+                          </>
+                        );
+                        return cardHref ? (
+                          <Link key={i} href={localizeHref(cardHref, locale)} className="flex items-center gap-3 rounded-xl border border-border bg-muted p-3 transition-colors hover:border-[hsl(var(--nav-theme))]">
+                            {cardBody}
+                            <ChevronRight className="ml-auto h-4 w-4 text-muted-foreground" />
+                          </Link>
+                        ) : (
+                          <div key={i} className="flex items-center gap-3 rounded-xl border border-border bg-muted p-3">
+                            {cardBody}
+                          </div>
+                        );
+                      })}
                     </div>
                   )}
 
