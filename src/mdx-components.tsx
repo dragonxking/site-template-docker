@@ -52,7 +52,7 @@ const defaultComponents: MDXComponents = {
   },
   h3: ({ children, id }) => {
     const headingId = id || toHeadingId(children);
-    return <h3 id={headingId} className="mt-8 text-xl font-semibold text-foreground">{children}</h3>;
+    return <h3 id={headingId} className="mt-8 scroll-m-20 text-xl font-semibold text-foreground">{children}</h3>;
   },
   p: ({ children }) => <p className="my-5 leading-8 text-muted-foreground">{children}</p>,
   ul: ({ children }) => <ul className="my-5 ml-5 list-disc space-y-2 text-muted-foreground marker:text-[hsl(var(--nav-theme))]">{children}</ul>,
